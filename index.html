@@ -1,10 +1,112 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Football Tournament</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Tournament Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #ff4500;
+            padding: 15px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        nav {
+            margin: 10px 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 10px;
+            font-size: 18px;
+        }
+        .section {
+            margin: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        table {
+            width: 90%;
+            margin: auto;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        table, th, td {
+            border: 1px solid white;
+        }
+        th, td {
+            padding: 10px;
+        }
+        .highlight {
+            color: yellow;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to the Football Tournament App</h1>
-    <p>This is a static website hosted on GitHub Pages.</p>
+
+    <header>⚽ Football Tournament Hub ⚽</header>
+
+    <nav>
+        <a href="#matches">🏆 Matches</a>
+        <a href="#teams">👥 Teams</a>
+        <a href="#leaderboard">📊 Leaderboard</a>
+    </nav>
+
+    <div class="section" id="matches">
+        <h2>🔥 Featured Matches 🔥</h2>
+        <p>⚽ <span class="highlight">Real Madrid vs Barcelona</span> - El Clásico (Tonight!)</p>
+        <p>⚽ Manchester City vs PSG - Champions League Semi-Final</p>
+    </div>
+
+    <div class="section" id="teams">
+        <h2>🏆 Top Teams 🏆</h2>
+        <ul>
+            <li>Real Madrid</li>
+            <li>FC Barcelona</li>
+            <li>Manchester City</li>
+            <li>Liverpool</li>
+            <li>PSG</li>
+        </ul>
+    </div>
+
+    <div class="section" id="leaderboard">
+        <h2>📊 Tournament Leaderboard</h2>
+        <table>
+            <tr>
+                <th>Rank</th>
+                <th>Team</th>
+                <th>Points</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Real Madrid</td>
+                <td>15</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Manchester City</td>
+                <td>12</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Barcelona</td>
+                <td>11</td>
+            </tr>
+        </table>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Football Tournament Hub. All Rights Reserved.</p>
+    </footer>
+
 </body>
 </html>
