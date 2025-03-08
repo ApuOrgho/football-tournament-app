@@ -260,45 +260,85 @@
     <!-- Live Matches Section -->
     <section class="section" id="matches">
       <h2>🔥 Live Matches 🔥</h2>
-      <div id="liveMatchesContent">
-        <p>Loading live matches...</p>
-      </div>
-      <button onclick="loadLiveMatches()">Refresh Live Scores</button>
+      <p id="liveMatch1">
+        ⚽ <span class="highlight">Real Madrid</span> <span class="live-score">2 - 1</span> <span class="highlight">Barcelona</span>
+      </p>
+      <p id="liveMatch2">
+        ⚽ Manchester City <span class="live-score">1 - 0</span> PSG
+      </p>
+      <button onclick="updateScores()">Update Scores</button>
     </section>
 
     <!-- Upcoming Matches Section -->
     <section class="section" id="upcoming">
       <h2>📅 Upcoming Matches</h2>
-      <div id="upcomingMatchesContent">
-        <p>Loading upcoming matches...</p>
-      </div>
+      <ul class="match-list">
+        <li>Real Madrid vs. Juventus - <em>March 15, 2025 - 20:00</em></li>
+        <li>Barcelona vs. Bayern Munich - <em>March 16, 2025 - 18:30</em></li>
+        <li>Manchester City vs. Liverpool - <em>March 17, 2025 - 21:00</em></li>
+      </ul>
     </section>
 
     <!-- Teams Section -->
     <section class="section" id="teams">
       <h2>🏆 Top Teams &amp; Players 🏆</h2>
       <div class="team-cards">
-        <div class="team-card" id="team-RealMadrid">
+        <div class="team-card">
           <h3>Real Madrid</h3>
-          <p>Loading team data...</p>
+          <p>Best Player: Vinicius Jr.</p>
+          <p>Coach: Carlo Ancelotti</p>
         </div>
-        <div class="team-card" id="team-Barcelona">
+        <div class="team-card">
           <h3>Barcelona</h3>
-          <p>Loading team data...</p>
+          <p>Best Player: Pedri</p>
+          <p>Coach: Xavi Hernandez</p>
         </div>
-        <div class="team-card" id="team-ManCity">
+        <div class="team-card">
           <h3>Manchester City</h3>
-          <p>Loading team data...</p>
+          <p>Best Player: Erling Haaland</p>
+          <p>Coach: Pep Guardiola</p>
         </div>
+        <!-- Add more team cards as needed -->
       </div>
     </section>
 
     <!-- Leaderboard Section -->
     <section class="section" id="leaderboard">
       <h2>📊 Tournament Leaderboard</h2>
-      <div id="leaderboardContent">
-        <p>Loading leaderboard...</p>
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Team</th>
+            <th>Points</th>
+            <th>Goal Difference</th>
+            <th>Form</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Real Madrid</td>
+            <td>15</td>
+            <td>+10</td>
+            <td>✅✅✅❌✅</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Manchester City</td>
+            <td>13</td>
+            <td>+8</td>
+            <td>✅✅❌✅✅</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Barcelona</td>
+            <td>12</td>
+            <td>+5</td>
+            <td>✅❌✅✅❌</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
 
     <!-- News Ticker Section -->
@@ -306,10 +346,9 @@
       <h2>📰 Latest Football News</h2>
       <div class="news-ticker-container">
         <div class="news-ticker">
-          🚀 Real Madrid clinches a thrilling win! &nbsp;&nbsp;&nbsp;🔥 Barcelona secures a draw! &nbsp;&nbsp;&nbsp;⚽ Manchester City dominates in the latest match!
+          🚀 Messi scores a hat-trick in his final game for PSG! &nbsp;&nbsp;&nbsp;🔥 Ronaldo breaks another Champions League record! &nbsp;&nbsp;&nbsp;⚽ Liverpool signs new striker for £100m!
         </div>
       </div>
-      <!-- For real news, integrate with a news API like NewsAPI.org -->
     </section>
 
     <!-- Fan Poll Section -->
@@ -348,110 +387,16 @@
       themeToggle.textContent = document.body.classList.contains('light-mode') ? 'Dark Mode' : 'Light Mode';
     });
 
-    // Fetch and display live matches from TheSportsDB API
-    function loadLiveMatches() {
-      fetch('https://www.thesportsdb.com/api/v1/json/1/livescore.php?l=English%20Premier%20League')
-        .then(response => response.json())
-        .then(data => {
-          const liveContent = document.getElementById('liveMatchesContent');
-          if (data && data.events) {
-            let html = '';
-            data.events.forEach(event => {
-              html += `<p>⚽ ${event.strHomeTeam} <span class="live-score">${event.intHomeScore || 0} - ${event.intAwayScore || 0}</span> ${event.strAwayTeam}</p>`;
-            });
-            liveContent.innerHTML = html;
-          } else {
-            liveContent.innerHTML = `<p>No live matches currently.</p>`;
-          }
-        })
-        .catch(error => {
-          console.error('Error fetching live matches:', error);
-          document.getElementById('liveMatchesContent').innerHTML = `<p>Error loading live matches.</p>`;
-        });
+    // Simulate Live Score Updates
+    function updateScores() {
+      // Random scores for demonstration
+      const score1 = Math.floor(Math.random() * 5) + ' - ' + Math.floor(Math.random() * 5);
+      const score2 = Math.floor(Math.random() * 5) + ' - ' + Math.floor(Math.random() * 5);
+      document.querySelector('#liveMatch1 .live-score').textContent = score1;
+      document.querySelector('#liveMatch2 .live-score').textContent = score2;
     }
 
-    // Fetch and display upcoming matches from TheSportsDB API
-    function loadUpcomingMatches() {
-      fetch('https://www.thesportsdb.com/api/v1/json/1/eventsnextleague.php?id=4328')
-        .then(response => response.json())
-        .then(data => {
-          const upcomingContent = document.getElementById('upcomingMatchesContent');
-          if (data && data.events) {
-            let html = '<ul class="match-list">';
-            data.events.forEach(event => {
-              html += `<li>${event.strHomeTeam} vs. ${event.strAwayTeam} - <em>${event.dateEvent} ${event.strTime}</em></li>`;
-            });
-            html += '</ul>';
-            upcomingContent.innerHTML = html;
-          } else {
-            upcomingContent.innerHTML = `<p>No upcoming matches available.</p>`;
-          }
-        })
-        .catch(error => {
-          console.error('Error fetching upcoming matches:', error);
-          document.getElementById('upcomingMatchesContent').innerHTML = `<p>Error loading upcoming matches.</p>`;
-        });
-    }
-
-    // Fetch and display team data from TheSportsDB API
-    function loadTeamData(teamName, elementId) {
-      fetch('https://www.thesportsdb.com/api/v1/json/1/searchteams.php?t=' + encodeURIComponent(teamName))
-        .then(response => response.json())
-        .then(data => {
-          if (data && data.teams && data.teams.length > 0) {
-            const team = data.teams[0];
-            const card = document.getElementById(elementId);
-            card.innerHTML = `<h3>${team.strTeam}</h3>
-                              <p>Manager: ${team.strManager || 'N/A'}</p>
-                              <p>Stadium: ${team.strStadium || 'N/A'}</p>
-                              <p>Founded: ${team.intFormedYear || 'N/A'}</p>`;
-          }
-        })
-        .catch(error => {
-          console.error('Error fetching team data:', error);
-        });
-    }
-
-    // Fetch and display leaderboard from TheSportsDB API
-    function loadLeaderboard() {
-      fetch('https://www.thesportsdb.com/api/v1/json/1/lookuptable.php?l=4328&s=2024-2025')
-        .then(response => response.json())
-        .then(data => {
-          const leaderboardContent = document.getElementById('leaderboardContent');
-          if (data && data.table) {
-            let html = `<table>
-                          <thead>
-                            <tr>
-                              <th>Rank</th>
-                              <th>Team</th>
-                              <th>Played</th>
-                              <th>Goal Difference</th>
-                              <th>Points</th>
-                            </tr>
-                          </thead>
-                          <tbody>`;
-            data.table.forEach(item => {
-              html += `<tr>
-                         <td>${item.intRank}</td>
-                         <td>${item.strTeam}</td>
-                         <td>${item.intPlayed}</td>
-                         <td>${item.intGoalDifference}</td>
-                         <td>${item.intPoints}</td>
-                       </tr>`;
-            });
-            html += `</tbody></table>`;
-            leaderboardContent.innerHTML = html;
-          } else {
-            leaderboardContent.innerHTML = `<p>Leaderboard data not available.</p>`;
-          }
-        })
-        .catch(error => {
-          console.error('Error fetching leaderboard:', error);
-          document.getElementById('leaderboardContent').innerHTML = `<p>Error loading leaderboard.</p>`;
-        });
-    }
-
-    // Poll functionality
+    // Handle Poll Submission
     document.getElementById('pollForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const options = document.getElementsByName('team');
@@ -466,12 +411,13 @@
         alert('Please select a team before voting.');
         return;
       }
-      // Simulated poll results using random percentages (in a real scenario, store and retrieve real votes)
+      // Simulated poll results
       const results = {
         "Real Madrid": Math.floor(Math.random() * 100),
         "Barcelona": Math.floor(Math.random() * 100),
         "Manchester City": Math.floor(Math.random() * 100)
       };
+      // Normalize percentages so total is 100 (for demo purposes)
       let total = results["Real Madrid"] + results["Barcelona"] + results["Manchester City"];
       for (let key in results) {
         results[key] = Math.round((results[key] / total) * 100);
@@ -482,7 +428,8 @@
       }
       document.getElementById('pollResults').innerHTML = output;
       // Disable further voting
-      document.getElementsByName('team').forEach(input => input.disabled = true);
+      const pollInputs = document.getElementsByName('team');
+      pollInputs.forEach(input => input.disabled = true);
       this.querySelector('button[type="submit"]').disabled = true;
     });
 
@@ -522,16 +469,6 @@
 
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // Initialize real data on page load
-    window.onload = function() {
-      loadLiveMatches();
-      loadUpcomingMatches();
-      loadLeaderboard();
-      loadTeamData("Real Madrid", "team-RealMadrid");
-      loadTeamData("Barcelona", "team-Barcelona");
-      loadTeamData("Manchester City", "team-ManCity");
     }
   </script>
 </body>
