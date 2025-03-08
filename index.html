@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Football Tournament Hub</title>
+    <title>Ultimate Football Tournament Hub</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -66,17 +66,33 @@
         @keyframes blink {
             50% { color: red; }
         }
+        #news-ticker {
+            overflow: hidden;
+            white-space: nowrap;
+            display: flex;
+            animation: ticker 15s linear infinite;
+        }
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .poll {
+            margin-top: 20px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
 
-    <header>⚽ Football Tournament Hub ⚽</header>
+    <header>⚽ ULTIMATE FOOTBALL TOURNAMENT HUB ⚽</header>
 
     <nav>
         <a href="#matches">🏆 Matches</a>
         <a href="#teams">👥 Teams</a>
         <a href="#leaderboard">📊 Leaderboard</a>
         <a href="#news">📰 News</a>
+        <a href="#poll">📊 Fan Poll</a>
+        <a href="#comments">💬 Comments</a>
     </nav>
 
     <div class="section" id="matches">
@@ -86,12 +102,22 @@
     </div>
 
     <div class="section" id="teams">
-        <h2>🏆 Top Teams 🏆</h2>
-        <div class="team-card">Real Madrid</div>
-        <div class="team-card">FC Barcelona</div>
-        <div class="team-card">Manchester City</div>
-        <div class="team-card">Liverpool</div>
-        <div class="team-card">PSG</div>
+        <h2>🏆 Top Teams & Players 🏆</h2>
+        <div class="team-card">
+            <h3>Real Madrid</h3>
+            <p>Best Player: Vinicius Jr.</p>
+            <p>Coach: Carlo Ancelotti</p>
+        </div>
+        <div class="team-card">
+            <h3>Barcelona</h3>
+            <p>Best Player: Pedri</p>
+            <p>Coach: Xavi Hernandez</p>
+        </div>
+        <div class="team-card">
+            <h3>Manchester City</h3>
+            <p>Best Player: Erling Haaland</p>
+            <p>Coach: Pep Guardiola</p>
+        </div>
     </div>
 
     <div class="section" id="leaderboard">
@@ -102,38 +128,71 @@
                 <th>Team</th>
                 <th>Points</th>
                 <th>Goal Difference</th>
+                <th>Form</th>
             </tr>
             <tr>
                 <td>1</td>
                 <td>Real Madrid</td>
                 <td>15</td>
                 <td>+10</td>
+                <td>✅✅✅❌✅</td>
             </tr>
             <tr>
                 <td>2</td>
                 <td>Manchester City</td>
                 <td>13</td>
                 <td>+8</td>
+                <td>✅✅❌✅✅</td>
             </tr>
             <tr>
                 <td>3</td>
                 <td>Barcelona</td>
                 <td>12</td>
                 <td>+5</td>
+                <td>✅❌✅✅❌</td>
             </tr>
         </table>
     </div>
 
     <div class="section" id="news">
         <h2>📰 Latest Football News</h2>
-        <p>🚀 Messi scores a hat-trick in his final game for PSG!</p>
-        <p>🔥 Cristiano Ronaldo breaks another Champions League record!</p>
-        <p>🔴 Liverpool signs new striker for £100m!</p>
+        <marquee id="news-ticker">
+            🚀 Messi scores a hat-trick in his final game for PSG! 🔥 Ronaldo breaks another Champions League record! ⚽ Liverpool signs new striker for £100m!
+        </marquee>
+    </div>
+
+    <div class="section" id="poll">
+        <h2>📊 Fan Poll: Who will win?</h2>
+        <form>
+            <input type="radio" name="team" value="Real Madrid"> Real Madrid<br>
+            <input type="radio" name="team" value="Barcelona"> Barcelona<br>
+            <input type="radio" name="team" value="Manchester City"> Manchester City<br>
+            <button type="button" onclick="alert('Vote Submitted!')">Vote</button>
+        </form>
+    </div>
+
+    <div class="section" id="comments">
+        <h2>💬 Fan Comments</h2>
+        <textarea id="commentBox" rows="4" cols="50" placeholder="Write your thoughts..."></textarea><br>
+        <button onclick="postComment()">Post</button>
+        <div id="commentSection"></div>
     </div>
 
     <footer>
-        <p>&copy; 2025 Football Tournament Hub. All Rights Reserved.</p>
+        <p>&copy; 2025 Ultimate Football Tournament Hub. All Rights Reserved.</p>
     </footer>
+
+    <script>
+        function postComment() {
+            let comment = document.getElementById('commentBox').value;
+            if (comment.trim() !== "") {
+                let div = document.createElement("div");
+                div.textContent = comment;
+                document.getElementById("commentSection").appendChild(div);
+                document.getElementById('commentBox').value = "";
+            }
+        }
+    </script>
 
 </body>
 </html>
