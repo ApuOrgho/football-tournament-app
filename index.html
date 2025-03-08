@@ -16,16 +16,19 @@
         header {
             background-color: #ff4500;
             padding: 15px;
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
         nav {
-            margin: 10px 0;
+            background: black;
+            padding: 10px;
         }
         nav a {
             color: white;
             text-decoration: none;
-            margin: 10px;
+            margin: 15px;
             font-size: 18px;
         }
         .section {
@@ -40,14 +43,28 @@
             border-collapse: collapse;
             background: rgba(255, 255, 255, 0.1);
         }
-        table, th, td {
-            border: 1px solid white;
-        }
         th, td {
+            border: 1px solid white;
             padding: 10px;
         }
         .highlight {
             color: yellow;
+        }
+        .team-card {
+            display: inline-block;
+            width: 200px;
+            padding: 10px;
+            margin: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+        .live-score {
+            font-size: 24px;
+            font-weight: bold;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            50% { color: red; }
         }
     </style>
 </head>
@@ -59,23 +76,22 @@
         <a href="#matches">🏆 Matches</a>
         <a href="#teams">👥 Teams</a>
         <a href="#leaderboard">📊 Leaderboard</a>
+        <a href="#news">📰 News</a>
     </nav>
 
     <div class="section" id="matches">
-        <h2>🔥 Featured Matches 🔥</h2>
-        <p>⚽ <span class="highlight">Real Madrid vs Barcelona</span> - El Clásico (Tonight!)</p>
-        <p>⚽ Manchester City vs PSG - Champions League Semi-Final</p>
+        <h2>🔥 Live Matches 🔥</h2>
+        <p>⚽ <span class="highlight">Real Madrid</span> <span class="live-score">2 - 1</span> <span class="highlight">Barcelona</span></p>
+        <p>⚽ Manchester City <span class="live-score">1 - 0</span> PSG</p>
     </div>
 
     <div class="section" id="teams">
         <h2>🏆 Top Teams 🏆</h2>
-        <ul>
-            <li>Real Madrid</li>
-            <li>FC Barcelona</li>
-            <li>Manchester City</li>
-            <li>Liverpool</li>
-            <li>PSG</li>
-        </ul>
+        <div class="team-card">Real Madrid</div>
+        <div class="team-card">FC Barcelona</div>
+        <div class="team-card">Manchester City</div>
+        <div class="team-card">Liverpool</div>
+        <div class="team-card">PSG</div>
     </div>
 
     <div class="section" id="leaderboard">
@@ -85,23 +101,34 @@
                 <th>Rank</th>
                 <th>Team</th>
                 <th>Points</th>
+                <th>Goal Difference</th>
             </tr>
             <tr>
                 <td>1</td>
                 <td>Real Madrid</td>
                 <td>15</td>
+                <td>+10</td>
             </tr>
             <tr>
                 <td>2</td>
                 <td>Manchester City</td>
-                <td>12</td>
+                <td>13</td>
+                <td>+8</td>
             </tr>
             <tr>
                 <td>3</td>
                 <td>Barcelona</td>
-                <td>11</td>
+                <td>12</td>
+                <td>+5</td>
             </tr>
         </table>
+    </div>
+
+    <div class="section" id="news">
+        <h2>📰 Latest Football News</h2>
+        <p>🚀 Messi scores a hat-trick in his final game for PSG!</p>
+        <p>🔥 Cristiano Ronaldo breaks another Champions League record!</p>
+        <p>🔴 Liverpool signs new striker for £100m!</p>
     </div>
 
     <footer>
