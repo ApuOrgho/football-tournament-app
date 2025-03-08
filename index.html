@@ -1,198 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Football Tournament Hub</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: white;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #ff4500;
-            padding: 15px;
-            font-size: 26px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        nav {
-            background: black;
-            padding: 10px;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 15px;
-            font-size: 18px;
-        }
-        .section {
-            margin: 20px;
-            padding: 20px;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
-        }
-        table {
-            width: 90%;
-            margin: auto;
-            border-collapse: collapse;
-            background: rgba(255, 255, 255, 0.1);
-        }
-        th, td {
-            border: 1px solid white;
-            padding: 10px;
-        }
-        .highlight {
-            color: yellow;
-        }
-        .team-card {
-            display: inline-block;
-            width: 200px;
-            padding: 10px;
-            margin: 10px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-        }
-        .live-score {
-            font-size: 24px;
-            font-weight: bold;
-            animation: blink 1s infinite;
-        }
-        @keyframes blink {
-            50% { color: red; }
-        }
-        #news-ticker {
-            overflow: hidden;
-            white-space: nowrap;
-            display: flex;
-            animation: ticker 15s linear infinite;
-        }
-        @keyframes ticker {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-        .poll {
-            margin-top: 20px;
-            text-align: left;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ultimate Football Tournament Hub</title>
+  <meta name="description" content="Stay updated with the latest football news, live scores, top teams, and fan interactions at the Ultimate Football Tournament Hub." />
+  <style>
+    /* Define color and style variables */
+    :root {
+      --primary-color: #ff4500;
+      --secondary-color: #121212;
+      --accent-color: #ffffff;
+      --highlight-color: #ffff00;
+      --background-overlay: rgba(255, 255, 255, 0.1);
+      --card-bg: rgba(255, 255, 255, 0.2);
+    }
+    /* CSS Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--accent-color);
+      line-height: 1.6;
+    }
+    header {
+      background: var(--primary-color);
+      padding: 15px;
+      text-align: center;
+      font-size: 1.8em;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    nav {
+      background: #000;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: var(--accent-color);
+      text-decoration: none;
+      padding: 10px 15px;
+      margin: 5px;
+      font-size: 1em;
+      transition: background 0.3s;
+    }
+    nav a:hover {
+      background: var(--primary-color);
+      border-radius: 5px;
+    }
+    main {
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .section {
+      background: var(--background-overlay);
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    h2 {
+      margin-bottom: 15px;
+    }
+    /* Live Matches */
+    .live-score {
+      font-size: 1.5em;
+      font-weight: bold;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      50% { color: red; }
+    }
+    /* Team Cards */
+    .team-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .team-card {
+      background: var(--card-bg);
+      width: 250px;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .team-card:hover {
+      transform: scale(1.05);
+    }
+    /* Leaderboard Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: auto;
+    }
+    th, td {
+      border: 1px solid var(--accent-color);
+      padding: 10px;
+      text-align: center;
+    }
+    /* News Ticker */
+    .news-ticker-container {
+      overflow: hidden;
+      position: relative;
+      background: var(--background-overlay);
+      border-radius: 10px;
+    }
+    .news-ticker {
+      display: inline-block;
+      white-space: nowrap;
+      position: absolute;
+      animation: ticker 20s linear infinite;
+      font-size: 1.2em;
+      padding: 10px 0;
+    }
+    @keyframes ticker {
+      0% { left: 100%; }
+      100% { left: -100%; }
+    }
+    /* Poll and Comment Styles */
+    form {
+      text-align: left;
+    }
+    button, input[type="submit"] {
+      background: var(--primary-color);
+      color: var(--accent-color);
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 1em;
+      transition: background 0.3s;
+    }
+    button:hover, input[type="submit"]:hover {
+      background: darkorange;
+    }
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid var(--accent-color);
+      background: #222;
+      color: var(--accent-color);
+      resize: vertical;
+    }
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+      }
+      .team-cards {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #000;
+      margin-top: 20px;
+      font-size: 0.9em;
+    }
+  </style>
 </head>
 <body>
-
-    <header>⚽ ULTIMATE FOOTBALL TOURNAMENT HUB ⚽</header>
-
-    <nav>
-        <a href="#matches">🏆 Matches</a>
-        <a href="#teams">👥 Teams</a>
-        <a href="#leaderboard">📊 Leaderboard</a>
-        <a href="#news">📰 News</a>
-        <a href="#poll">📊 Fan Poll</a>
-        <a href="#comments">💬 Comments</a>
-    </nav>
-
-    <div class="section" id="matches">
-        <h2>🔥 Live Matches 🔥</h2>
-        <p>⚽ <span class="highlight">Real Madrid</span> <span class="live-score">2 - 1</span> <span class="highlight">Barcelona</span></p>
-        <p>⚽ Manchester City <span class="live-score">1 - 0</span> PSG</p>
-    </div>
-
-    <div class="section" id="teams">
-        <h2>🏆 Top Teams & Players 🏆</h2>
+  <header>⚽ Ultimate Football Tournament Hub ⚽</header>
+  <nav>
+    <a href="#matches">🏆 Matches</a>
+    <a href="#teams">👥 Teams</a>
+    <a href="#leaderboard">📊 Leaderboard</a>
+    <a href="#news">📰 News</a>
+    <a href="#poll">📊 Poll</a>
+    <a href="#comments">💬 Comments</a>
+  </nav>
+  <main>
+    <section class="section" id="matches">
+      <h2>🔥 Live Matches 🔥</h2>
+      <p>⚽ <span class="highlight">Real Madrid</span> <span class="live-score">2 - 1</span> <span class="highlight">Barcelona</span></p>
+      <p>⚽ Manchester City <span class="live-score">1 - 0</span> PSG</p>
+    </section>
+    <section class="section" id="teams">
+      <h2>🏆 Top Teams &amp; Players 🏆</h2>
+      <div class="team-cards">
         <div class="team-card">
-            <h3>Real Madrid</h3>
-            <p>Best Player: Vinicius Jr.</p>
-            <p>Coach: Carlo Ancelotti</p>
+          <h3>Real Madrid</h3>
+          <p>Best Player: Vinicius Jr.</p>
+          <p>Coach: Carlo Ancelotti</p>
         </div>
         <div class="team-card">
-            <h3>Barcelona</h3>
-            <p>Best Player: Pedri</p>
-            <p>Coach: Xavi Hernandez</p>
+          <h3>Barcelona</h3>
+          <p>Best Player: Pedri</p>
+          <p>Coach: Xavi Hernandez</p>
         </div>
         <div class="team-card">
-            <h3>Manchester City</h3>
-            <p>Best Player: Erling Haaland</p>
-            <p>Coach: Pep Guardiola</p>
+          <h3>Manchester City</h3>
+          <p>Best Player: Erling Haaland</p>
+          <p>Coach: Pep Guardiola</p>
         </div>
-    </div>
-
-    <div class="section" id="leaderboard">
-        <h2>📊 Tournament Leaderboard</h2>
-        <table>
-            <tr>
-                <th>Rank</th>
-                <th>Team</th>
-                <th>Points</th>
-                <th>Goal Difference</th>
-                <th>Form</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Real Madrid</td>
-                <td>15</td>
-                <td>+10</td>
-                <td>✅✅✅❌✅</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Manchester City</td>
-                <td>13</td>
-                <td>+8</td>
-                <td>✅✅❌✅✅</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Barcelona</td>
-                <td>12</td>
-                <td>+5</td>
-                <td>✅❌✅✅❌</td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="section" id="news">
-        <h2>📰 Latest Football News</h2>
-        <marquee id="news-ticker">
-            🚀 Messi scores a hat-trick in his final game for PSG! 🔥 Ronaldo breaks another Champions League record! ⚽ Liverpool signs new striker for £100m!
-        </marquee>
-    </div>
-
-    <div class="section" id="poll">
-        <h2>📊 Fan Poll: Who will win?</h2>
-        <form>
-            <input type="radio" name="team" value="Real Madrid"> Real Madrid<br>
-            <input type="radio" name="team" value="Barcelona"> Barcelona<br>
-            <input type="radio" name="team" value="Manchester City"> Manchester City<br>
-            <button type="button" onclick="alert('Vote Submitted!')">Vote</button>
-        </form>
-    </div>
-
-    <div class="section" id="comments">
-        <h2>💬 Fan Comments</h2>
-        <textarea id="commentBox" rows="4" cols="50" placeholder="Write your thoughts..."></textarea><br>
-        <button onclick="postComment()">Post</button>
-        <div id="commentSection"></div>
-    </div>
-
-    <footer>
-        <p>&copy; 2025 Ultimate Football Tournament Hub. All Rights Reserved.</p>
-    </footer>
-
-    <script>
-        function postComment() {
-            let comment = document.getElementById('commentBox').value;
-            if (comment.trim() !== "") {
-                let div = document.createElement("div");
-                div.textContent = comment;
-                document.getElementById("commentSection").appendChild(div);
-                document.getElementById('commentBox').value = "";
-            }
-        }
-    </script>
-
+      </div>
+    </section>
+    <section class="section" id="leaderboard">
+      <h2>📊 Tournament Leaderboard</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Team</th>
+            <th>Points</th>
+            <th>Goal Difference</th>
+            <th>Form</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Real Madrid</td>
+            <td>15</td>
+            <td>+10</td>
+            <td>✅✅✅❌✅</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Manchester City</td>
+            <td>13</td>
+            <td>+8</td>
+            <td>✅✅❌✅✅</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Barcelona</td>
+            <td>12</td>
+            <td>+5</td>
+            <td>✅❌✅✅❌</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="section" id="news">
+      <h2>📰 Latest Football News</h2>
+      <div class="news-ticker-container">
+        <div class="news-ticker">
+          🚀 Messi scores a hat-trick in his final game for PSG! &nbsp;&nbsp;&nbsp;🔥 Ronaldo breaks another Champions League record! &nbsp;&nbsp;&nbsp;⚽ Liverpool signs new striker for £100m!
+        </div>
+      </div>
+    </section>
+    <section class="section" id="poll">
+      <h2>📊 Fan Poll: Who will win?</h2>
+      <form onsubmit="event.preventDefault(); alert('Vote Submitted!');">
+        <label><input type="radio" name="team" value="Real Madrid" /> Real Madrid</label><br />
+        <label><input type="radio" name="team" value="Barcelona" /> Barcelona</label><br />
+        <label><input type="radio" name="team" value="Manchester City" /> Manchester City</label><br /><br />
+        <button type="submit">Vote</button>
+      </form>
+    </section>
+    <section class="section" id="comments">
+      <h2>💬 Fan Comments</h2>
+      <textarea id="commentBox" rows="4" placeholder="Write your thoughts..."></textarea><br /><br />
+      <button onclick="postComment()">Post Comment</button>
+      <div id="commentSection" style="margin-top:15px;"></div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 Ultimate Football Tournament Hub. All Rights Reserved.</p>
+  </footer>
+  <script>
+    function postComment() {
+      var comment = document.getElementById('commentBox').value;
+      if(comment.trim() !== "") {
+        var commentDiv = document.createElement("div");
+        commentDiv.style.background = "#222";
+        commentDiv.style.padding = "10px";
+        commentDiv.style.margin = "10px 0";
+        commentDiv.style.borderRadius = "5px";
+        commentDiv.textContent = comment;
+        document.getElementById("commentSection").appendChild(commentDiv);
+        document.getElementById('commentBox').value = "";
+      }
+    }
+  </script>
 </body>
 </html>
