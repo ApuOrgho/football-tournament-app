@@ -1,198 +1,346 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Football Tournament Hub</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: white;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #ff4500;
-            padding: 15px;
-            font-size: 26px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        nav {
-            background: black;
-            padding: 10px;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 15px;
-            font-size: 18px;
-        }
-        .section {
-            margin: 20px;
-            padding: 20px;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
-        }
-        table {
-            width: 90%;
-            margin: auto;
-            border-collapse: collapse;
-            background: rgba(255, 255, 255, 0.1);
-        }
-        th, td {
-            border: 1px solid white;
-            padding: 10px;
-        }
-        .highlight {
-            color: yellow;
-        }
-        .team-card {
-            display: inline-block;
-            width: 200px;
-            padding: 10px;
-            margin: 10px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-        }
-        .live-score {
-            font-size: 24px;
-            font-weight: bold;
-            animation: blink 1s infinite;
-        }
-        @keyframes blink {
-            50% { color: red; }
-        }
-        #news-ticker {
-            overflow: hidden;
-            white-space: nowrap;
-            display: flex;
-            animation: ticker 15s linear infinite;
-        }
-        @keyframes ticker {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-        .poll {
-            margin-top: 20px;
-            text-align: left;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ultimate Football News Hub</title>
+  <style>
+    /* Reset & Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212;
+      color: #f0f0f0;
+      line-height: 1.6;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    /* Header & Navigation */
+    header {
+      background-color: #ff4500;
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+    .logo {
+      font-size: 2em;
+      font-weight: bold;
+    }
+    nav {
+      margin-top: 10px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    nav ul li {
+      margin: 0 15px;
+    }
+    nav ul li a {
+      font-size: 1.1em;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav ul li a:hover {
+      color: #ffcc00;
+    }
+    /* Hero Slider */
+    .hero-slider {
+      position: relative;
+      overflow: hidden;
+      margin: 20px 0;
+      border-radius: 10px;
+    }
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .slide {
+      min-width: 100%;
+      position: relative;
+    }
+    .slide img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .slide-info {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .slide-info h2 {
+      font-size: 1.5em;
+    }
+    /* Main Layout */
+    .main-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .news-section {
+      flex: 3;
+    }
+    .sidebar {
+      flex: 1;
+      background: #1e1e1e;
+      padding: 15px;
+      border-radius: 10px;
+      height: fit-content;
+    }
+    /* News Grid */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .news-card {
+      background: #1e1e1e;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s;
+    }
+    .news-card:hover {
+      transform: scale(1.02);
+    }
+    .news-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .news-content {
+      padding: 15px;
+    }
+    .news-content h3 {
+      margin-bottom: 10px;
+    }
+    .news-content p {
+      font-size: 0.9em;
+      margin-bottom: 15px;
+    }
+    .news-content span {
+      font-size: 0.8em;
+      color: #ccc;
+    }
+    /* Sidebar Styles */
+    .sidebar h3 {
+      margin-bottom: 10px;
+    }
+    .ticker {
+      overflow: hidden;
+      white-space: nowrap;
+      background: #333;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .ticker span {
+      display: inline-block;
+      padding-right: 50px;
+      animation: ticker 15s linear infinite;
+    }
+    @keyframes ticker {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+    }
+    .sidebar ul li {
+      margin: 8px 0;
+    }
+    .sidebar ul li a {
+      color: #ffcc00;
+      font-weight: bold;
+    }
+    .sidebar form input[type="email"] {
+      padding: 5px;
+      width: 80%;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+    .sidebar form button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      background: #ff4500;
+      color: white;
+      cursor: pointer;
+    }
+    /* Footer */
+    footer {
+      background: #222;
+      padding: 20px;
+      text-align: center;
+      margin-top: 20px;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-slider .slide img {
+        height: 250px;
+      }
+      .main-content {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 <body>
-
-    <header>⚽ ULTIMATE FOOTBALL TOURNAMENT HUB ⚽</header>
-
-    <nav>
-        <a href="#matches">🏆 Matches</a>
-        <a href="#teams">👥 Teams</a>
-        <a href="#leaderboard">📊 Leaderboard</a>
-        <a href="#news">📰 News</a>
-        <a href="#poll">📊 Fan Poll</a>
-        <a href="#comments">💬 Comments</a>
-    </nav>
-
-    <div class="section" id="matches">
-        <h2>🔥 Live Matches 🔥</h2>
-        <p>⚽ <span class="highlight">Real Madrid</span> <span class="live-score">2 - 1</span> <span class="highlight">Barcelona</span></p>
-        <p>⚽ Manchester City <span class="live-score">1 - 0</span> PSG</p>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="logo">Ultimate Football News Hub</div>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">News</a></li>
+          <li><a href="#">Live Scores</a></li>
+          <li><a href="#">Fixtures</a></li>
+          <li><a href="#">Teams</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
 
-    <div class="section" id="teams">
-        <h2>🏆 Top Teams & Players 🏆</h2>
-        <div class="team-card">
-            <h3>Real Madrid</h3>
-            <p>Best Player: Vinicius Jr.</p>
-            <p>Coach: Carlo Ancelotti</p>
+  <div class="container">
+    <!-- Hero Slider -->
+    <div class="hero-slider">
+      <div class="slides">
+        <div class="slide">
+          <img src="https://via.placeholder.com/1200x400?text=Breaking+News+1" alt="Breaking News 1" />
+          <div class="slide-info">
+            <h2>Breaking: Major Transfer News!</h2>
+          </div>
         </div>
-        <div class="team-card">
-            <h3>Barcelona</h3>
-            <p>Best Player: Pedri</p>
-            <p>Coach: Xavi Hernandez</p>
+        <div class="slide">
+          <img src="https://via.placeholder.com/1200x400?text=Breaking+News+2" alt="Breaking News 2" />
+          <div class="slide-info">
+            <h2>Champions League: Epic Showdown!</h2>
+          </div>
         </div>
-        <div class="team-card">
-            <h3>Manchester City</h3>
-            <p>Best Player: Erling Haaland</p>
-            <p>Coach: Pep Guardiola</p>
+        <div class="slide">
+          <img src="https://via.placeholder.com/1200x400?text=Breaking+News+3" alt="Breaking News 3" />
+          <div class="slide-info">
+            <h2>Exclusive Interview with Star Player</h2>
+          </div>
         </div>
+      </div>
     </div>
 
-    <div class="section" id="leaderboard">
-        <h2>📊 Tournament Leaderboard</h2>
-        <table>
-            <tr>
-                <th>Rank</th>
-                <th>Team</th>
-                <th>Points</th>
-                <th>Goal Difference</th>
-                <th>Form</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Real Madrid</td>
-                <td>15</td>
-                <td>+10</td>
-                <td>✅✅✅❌✅</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Manchester City</td>
-                <td>13</td>
-                <td>+8</td>
-                <td>✅✅❌✅✅</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Barcelona</td>
-                <td>12</td>
-                <td>+5</td>
-                <td>✅❌✅✅❌</td>
-            </tr>
-        </table>
-    </div>
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- News Section -->
+      <div class="news-section">
+        <h2>Latest News</h2>
+        <div class="news-grid">
+          <div class="news-card">
+            <img src="https://via.placeholder.com/300x200?text=News+Image+1" alt="News Image 1" />
+            <div class="news-content">
+              <h3>Big Win in the Finals</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae eros eget tellus tristique bibendum.</p>
+              <span>June 10, 2025</span>
+            </div>
+          </div>
+          <div class="news-card">
+            <img src="https://via.placeholder.com/300x200?text=News+Image+2" alt="News Image 2" />
+            <div class="news-content">
+              <h3>Stunning Goal of the Season</h3>
+              <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+              <span>June 09, 2025</span>
+            </div>
+          </div>
+          <div class="news-card">
+            <img src="https://via.placeholder.com/300x200?text=News+Image+3" alt="News Image 3" />
+            <div class="news-content">
+              <h3>Manager’s Tactical Masterclass</h3>
+              <p>Aenean lacinia bibendum nulla sed consectetur. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+              <span>June 08, 2025</span>
+            </div>
+          </div>
+          <div class="news-card">
+            <img src="https://via.placeholder.com/300x200?text=News+Image+4" alt="News Image 4" />
+            <div class="news-content">
+              <h3>New Star Emerges in the League</h3>
+              <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+              <span>June 07, 2025</span>
+            </div>
+          </div>
+          <!-- Additional cards can be added here -->
+        </div>
+        <button id="loadMore" style="margin: 20px; padding: 10px 20px; font-size: 1em; cursor: pointer;">Load More</button>
+      </div>
 
-    <div class="section" id="news">
-        <h2>📰 Latest Football News</h2>
-        <marquee id="news-ticker">
-            🚀 Messi scores a hat-trick in his final game for PSG! 🔥 Ronaldo breaks another Champions League record! ⚽ Liverpool signs new striker for £100m!
-        </marquee>
-    </div>
-
-    <div class="section" id="poll">
-        <h2>📊 Fan Poll: Who will win?</h2>
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <h3>Trending Now</h3>
+        <div class="ticker">
+          <span>Breaking: Star player injured! &nbsp;&nbsp;&nbsp; Transfer rumors intensify! &nbsp;&nbsp;&nbsp; New tactical trends emerge!</span>
+        </div>
+        <h3>Categories</h3>
+        <ul>
+          <li><a href="#">Transfer News</a></li>
+          <li><a href="#">Match Reports</a></li>
+          <li><a href="#">Interviews</a></li>
+          <li><a href="#">Analysis</a></li>
+          <li><a href="#">Opinion</a></li>
+        </ul>
+        <h3>Subscribe</h3>
         <form>
-            <input type="radio" name="team" value="Real Madrid"> Real Madrid<br>
-            <input type="radio" name="team" value="Barcelona"> Barcelona<br>
-            <input type="radio" name="team" value="Manchester City"> Manchester City<br>
-            <button type="button" onclick="alert('Vote Submitted!')">Vote</button>
+          <input type="email" placeholder="Enter your email" required />
+          <br />
+          <button type="submit">Subscribe</button>
         </form>
+      </aside>
     </div>
+  </div>
 
-    <div class="section" id="comments">
-        <h2>💬 Fan Comments</h2>
-        <textarea id="commentBox" rows="4" cols="50" placeholder="Write your thoughts..."></textarea><br>
-        <button onclick="postComment()">Post</button>
-        <div id="commentSection"></div>
-    </div>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Ultimate Football News Hub. All Rights Reserved.</p>
+  </footer>
 
-    <footer>
-        <p>&copy; 2025 Ultimate Football Tournament Hub. All Rights Reserved.</p>
-    </footer>
+  <script>
+    // Hero Slider Functionality
+    let slideIndex = 0;
+    const slides = document.querySelector('.slides');
+    const totalSlides = slides.children.length;
+    function showNextSlide() {
+      slideIndex = (slideIndex + 1) % totalSlides;
+      slides.style.transform = 'translateX(-' + slideIndex * 100 + '%)';
+    }
+    setInterval(showNextSlide, 3000);
 
-    <script>
-        function postComment() {
-            let comment = document.getElementById('commentBox').value;
-            if (comment.trim() !== "") {
-                let div = document.createElement("div");
-                div.textContent = comment;
-                document.getElementById("commentSection").appendChild(div);
-                document.getElementById('commentBox').value = "";
-            }
-        }
-    </script>
-
+    // Load More Button (Dummy Implementation)
+    document.getElementById('loadMore').addEventListener('click', function () {
+      alert('Load more news... (Demo functionality)');
+    });
+  </script>
 </body>
 </html>
