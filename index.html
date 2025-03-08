@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ultimate Football Tournament Hub</title>
-  <meta name="description" content="Stay updated with the latest football news, live scores, top teams, and fan interactions at the Ultimate Football Tournament Hub." />
+  <meta name="description" content="Stay updated with the latest football news, live scores, upcoming matches, top teams, and fan interactions at the Ultimate Football Tournament Hub." />
   <style>
-    /* Define color and style variables */
+    /* CSS Variables for theming */
     :root {
       --primary-color: #ff4500;
       --secondary-color: #121212;
@@ -14,6 +14,16 @@
       --highlight-color: #ffff00;
       --background-overlay: rgba(255, 255, 255, 0.1);
       --card-bg: rgba(255, 255, 255, 0.2);
+    }
+    body.light-mode {
+      --primary-color: #ff4500;
+      --secondary-color: #f4f4f4;
+      --accent-color: #333;
+      --highlight-color: #ffa500;
+      --background-overlay: rgba(0, 0, 0, 0.05);
+      --card-bg: rgba(0, 0, 0, 0.1);
+      background-color: var(--secondary-color);
+      color: var(--accent-color);
     }
     /* CSS Reset */
     * {
@@ -35,6 +45,20 @@
       font-weight: bold;
       text-transform: uppercase;
       letter-spacing: 2px;
+      position: relative;
+    }
+    /* Dark/Light toggle button */
+    #theme-toggle {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      background: var(--accent-color);
+      color: var(--secondary-color);
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 0.8em;
     }
     nav {
       background: #000;
@@ -68,7 +92,7 @@
     h2 {
       margin-bottom: 15px;
     }
-    /* Live Matches */
+    /* Live Matches Section */
     .live-score {
       font-size: 1.5em;
       font-weight: bold;
@@ -76,6 +100,17 @@
     }
     @keyframes blink {
       50% { color: red; }
+    }
+    /* Upcoming Matches */
+    .match-list {
+      list-style: none;
+      padding: 0;
+    }
+    .match-list li {
+      margin: 10px 0;
+      padding: 10px;
+      background: var(--card-bg);
+      border-radius: 5px;
     }
     /* Team Cards */
     .team-cards {
@@ -125,7 +160,7 @@
       0% { left: 100%; }
       100% { left: -100%; }
     }
-    /* Poll and Comment Styles */
+    /* Forms & Buttons */
     form {
       text-align: left;
     }
@@ -151,7 +186,44 @@
       color: var(--accent-color);
       resize: vertical;
     }
-    /* Responsive Adjustments */
+    .poll-results {
+      margin-top: 10px;
+      padding: 10px;
+      background: var(--card-bg);
+      border-radius: 5px;
+    }
+    .comment {
+      background: #222;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      position: relative;
+    }
+    .like-btn {
+      background: transparent;
+      border: none;
+      color: var(--primary-color);
+      cursor: pointer;
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+    }
+    /* Scroll to Top Button */
+    #scrollTopBtn {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--primary-color);
+      color: var(--accent-color);
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2em;
+      z-index: 100;
+    }
+    /* Responsive */
     @media (max-width: 768px) {
       nav {
         flex-direction: column;
@@ -171,9 +243,13 @@
   </style>
 </head>
 <body>
-  <header>⚽ Ultimate Football Tournament Hub ⚽</header>
+  <header>
+    ⚽ Ultimate Football Tournament Hub ⚽
+    <button id="theme-toggle">Light Mode</button>
+  </header>
   <nav>
     <a href="#matches">🏆 Matches</a>
+    <a href="#upcoming">📅 Upcoming</a>
     <a href="#teams">👥 Teams</a>
     <a href="#leaderboard">📊 Leaderboard</a>
     <a href="#news">📰 News</a>
@@ -181,11 +257,29 @@
     <a href="#comments">💬 Comments</a>
   </nav>
   <main>
+    <!-- Live Matches Section -->
     <section class="section" id="matches">
       <h2>🔥 Live Matches 🔥</h2>
-      <p>⚽ <span class="highlight">Real Madrid</span> <span class="live-score">2 - 1</span> <span class="highlight">Barcelona</span></p>
-      <p>⚽ Manchester City <span class="live-score">1 - 0</span> PSG</p>
+      <p id="liveMatch1">
+        ⚽ <span class="highlight">Real Madrid</span> <span class="live-score">2 - 1</span> <span class="highlight">Barcelona</span>
+      </p>
+      <p id="liveMatch2">
+        ⚽ Manchester City <span class="live-score">1 - 0</span> PSG
+      </p>
+      <button onclick="updateScores()">Update Scores</button>
     </section>
+
+    <!-- Upcoming Matches Section -->
+    <section class="section" id="upcoming">
+      <h2>📅 Upcoming Matches</h2>
+      <ul class="match-list">
+        <li>Real Madrid vs. Juventus - <em>March 15, 2025 - 20:00</em></li>
+        <li>Barcelona vs. Bayern Munich - <em>March 16, 2025 - 18:30</em></li>
+        <li>Manchester City vs. Liverpool - <em>March 17, 2025 - 21:00</em></li>
+      </ul>
+    </section>
+
+    <!-- Teams Section -->
     <section class="section" id="teams">
       <h2>🏆 Top Teams &amp; Players 🏆</h2>
       <div class="team-cards">
@@ -204,8 +298,11 @@
           <p>Best Player: Erling Haaland</p>
           <p>Coach: Pep Guardiola</p>
         </div>
+        <!-- Add more team cards as needed -->
       </div>
     </section>
+
+    <!-- Leaderboard Section -->
     <section class="section" id="leaderboard">
       <h2>📊 Tournament Leaderboard</h2>
       <table>
@@ -243,6 +340,8 @@
         </tbody>
       </table>
     </section>
+
+    <!-- News Ticker Section -->
     <section class="section" id="news">
       <h2>📰 Latest Football News</h2>
       <div class="news-ticker-container">
@@ -251,15 +350,20 @@
         </div>
       </div>
     </section>
+
+    <!-- Fan Poll Section -->
     <section class="section" id="poll">
       <h2>📊 Fan Poll: Who will win?</h2>
-      <form onsubmit="event.preventDefault(); alert('Vote Submitted!');">
+      <form id="pollForm">
         <label><input type="radio" name="team" value="Real Madrid" /> Real Madrid</label><br />
         <label><input type="radio" name="team" value="Barcelona" /> Barcelona</label><br />
         <label><input type="radio" name="team" value="Manchester City" /> Manchester City</label><br /><br />
         <button type="submit">Vote</button>
       </form>
+      <div id="pollResults" class="poll-results"></div>
     </section>
+
+    <!-- Fan Comments Section -->
     <section class="section" id="comments">
       <h2>💬 Fan Comments</h2>
       <textarea id="commentBox" rows="4" placeholder="Write your thoughts..."></textarea><br /><br />
@@ -267,22 +371,104 @@
       <div id="commentSection" style="margin-top:15px;"></div>
     </section>
   </main>
+
+  <!-- Scroll to Top Button -->
+  <button id="scrollTopBtn" title="Go to top" onclick="scrollToTop()">↑</button>
+
   <footer>
     <p>&copy; 2025 Ultimate Football Tournament Hub. All Rights Reserved.</p>
   </footer>
+
   <script>
-    function postComment() {
-      var comment = document.getElementById('commentBox').value;
-      if(comment.trim() !== "") {
-        var commentDiv = document.createElement("div");
-        commentDiv.style.background = "#222";
-        commentDiv.style.padding = "10px";
-        commentDiv.style.margin = "10px 0";
-        commentDiv.style.borderRadius = "5px";
-        commentDiv.textContent = comment;
-        document.getElementById("commentSection").appendChild(commentDiv);
-        document.getElementById('commentBox').value = "";
+    // Toggle Dark/Light Mode
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      themeToggle.textContent = document.body.classList.contains('light-mode') ? 'Dark Mode' : 'Light Mode';
+    });
+
+    // Simulate Live Score Updates
+    function updateScores() {
+      // Random scores for demonstration
+      const score1 = Math.floor(Math.random() * 5) + ' - ' + Math.floor(Math.random() * 5);
+      const score2 = Math.floor(Math.random() * 5) + ' - ' + Math.floor(Math.random() * 5);
+      document.querySelector('#liveMatch1 .live-score').textContent = score1;
+      document.querySelector('#liveMatch2 .live-score').textContent = score2;
+    }
+
+    // Handle Poll Submission
+    document.getElementById('pollForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const options = document.getElementsByName('team');
+      let selected = '';
+      for (let opt of options) {
+        if (opt.checked) {
+          selected = opt.value;
+          break;
+        }
       }
+      if (!selected) {
+        alert('Please select a team before voting.');
+        return;
+      }
+      // Simulated poll results
+      const results = {
+        "Real Madrid": Math.floor(Math.random() * 100),
+        "Barcelona": Math.floor(Math.random() * 100),
+        "Manchester City": Math.floor(Math.random() * 100)
+      };
+      // Normalize percentages so total is 100 (for demo purposes)
+      let total = results["Real Madrid"] + results["Barcelona"] + results["Manchester City"];
+      for (let key in results) {
+        results[key] = Math.round((results[key] / total) * 100);
+      }
+      let output = '<strong>Poll Results:</strong><br />';
+      for (let key in results) {
+        output += key + ': ' + results[key] + '%<br />';
+      }
+      document.getElementById('pollResults').innerHTML = output;
+      // Disable further voting
+      const pollInputs = document.getElementsByName('team');
+      pollInputs.forEach(input => input.disabled = true);
+      this.querySelector('button[type="submit"]').disabled = true;
+    });
+
+    // Post a Comment with Like Button
+    function postComment() {
+      let commentText = document.getElementById('commentBox').value.trim();
+      if (commentText === "") return;
+      let commentDiv = document.createElement("div");
+      commentDiv.classList.add("comment");
+      commentDiv.textContent = commentText;
+      
+      // Create Like button
+      let likeBtn = document.createElement("button");
+      likeBtn.textContent = "Like (0)";
+      likeBtn.classList.add("like-btn");
+      likeBtn.onclick = function() {
+        let currentLikes = parseInt(likeBtn.textContent.match(/\d+/)[0]);
+        likeBtn.textContent = "Like (" + (currentLikes + 1) + ")";
+      };
+      commentDiv.appendChild(likeBtn);
+      
+      document.getElementById("commentSection").appendChild(commentDiv);
+      document.getElementById('commentBox').value = "";
+    }
+
+    // Scroll to Top Functionality
+    window.onscroll = function() { toggleScrollButton(); };
+
+    function toggleScrollButton() {
+      const scrollBtn = document.getElementById("scrollTopBtn");
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        scrollBtn.style.display = "block";
+      } else {
+        scrollBtn.style.display = "none";
+      }
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
 </body>
